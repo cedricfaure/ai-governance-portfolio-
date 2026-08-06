@@ -1,0 +1,138 @@
+# AI Use Case Business Card — machine-readable template.
+# This is a template: every value below is a placeholder. See ../README.md for
+# the framework and ../reference/ for the detail behind each field.
+# Mirrors template/ai-use-case-business-card.md field for field.
+
+block_1_identity:
+  use_case_id:
+  name:
+  business_sponsor:        # named individual, not a function
+  process_owner:            # end-to-end accountability
+  technical_owner:
+  risk_owner:
+  date_raised:
+  version:
+  current_gate:              # enum: gate_0_intake | gate_1_pilot | gate_2_mvp | gate_3_scale | gate_4_sustain
+
+block_2_problem_counterfactual:
+  decision_or_task:
+  current_performer:
+  volume_per_period:
+  counterfactual:            # does the avoided cost genuinely arrive?
+
+block_3_workflow_delta:
+  process_today:
+  process_after:
+  steps_removed: []
+  steps_introduced: []
+  human_decision_point:
+
+block_4_value_hypothesis:
+  # one entry per benefit claimed
+  - benefit_shape:          # enum: B1_cost_avoidance | B2_labour_time_compression | B3_work_deflection | B4_revenue_generation | B5_loss_risk_reduction | B6_quality_error_reduction | B7_non_monetisable_mission_value
+    description:
+    unit:
+    value_cur_p50:
+    baseline_source:
+    realisation_path:        # required if benefit_shape == B2
+
+block_5_kpi_ladder:
+  l5_technical:
+    - kpi:
+      owner:
+      baseline:
+      target:
+      threshold:
+      measurement_method:
+  l4_adoption:
+    - kpi:
+      owner:
+      baseline:
+      target:
+      threshold:
+      measurement_method:
+  l3_operational:
+    - kpi:
+      owner:
+      baseline:
+      target:
+      threshold:
+      measurement_method:
+  l2_strategic:
+    - kpi:
+      owner:
+      baseline:
+      target:
+      threshold:
+      measurement_method:
+  l1_financial:
+    - kpi:
+      owner:
+      baseline:
+      target:
+      threshold:
+      measurement_method:
+
+block_6_baseline_attribution:
+  baseline_confidence_grade:  # enum: A | B | C | D | E
+  method:
+  attribution_design:          # enum: randomised_control | staggered_rollout | hold_out_cohort | synthetic_control | pre_post_exogenous_controls | pre_post_uncontrolled
+  optimism_bias_stage:          # enum: concept_intake | pilot_approved | mvp_live_workflow | post_scaling_measured_actuals
+  optimism_bias_haircut_pct:
+
+block_7_cost_tco:
+  build_cur:
+  run_annual_cur:
+  governance_cur:
+  reserve_cur:
+  total_tco_cur:
+  gross_benefit_p10_p50_p90: [ , , ]
+  risk_delta_p10_p50_p90: [ , , ]
+  risk_adjusted_net_benefit_p10_p50_p90: [ , , ]
+  risk_adjusted_roi_pct_p10_p50_p90: [ , , ]
+  payback_period_p10_p50_p90: [ , , ]
+
+block_8_risk_governance:
+  risk_classification: []      # per applicable regime
+  provider_or_deployer_role:
+  human_oversight_model:        # enum: no_human_in_loop | human_on_the_loop | human_in_the_loop | human_decides_ai_advises
+  affected_persons:
+  contestability:
+  data_provenance_lawful_basis:
+  risk_delta_scenarios: []
+  impact_assessment_required:   # enum: yes | no
+  impact_assessment_reference:
+
+block_9_gates_cadence:
+  - gate: gate_0_intake
+    decision:
+    evidence:
+    decision_maker:
+    date:
+  - gate: gate_1_pilot
+    decision:
+    evidence:
+    decision_maker:
+    date:
+  - gate: gate_2_mvp
+    decision:
+    evidence:
+    decision_maker:
+    date:
+  - gate: gate_3_scale
+    decision:
+    evidence:
+    decision_maker:
+    date:
+  - gate: gate_4_sustain
+    decision:
+    evidence:
+    decision_maker:
+    date:
+
+block_10_kill_criteria: []      # each entry: threshold + consequence, not "we will review it"
+
+version_history:
+  - version:
+    date:
+    change:
