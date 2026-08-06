@@ -47,7 +47,7 @@ graph LR
 
 | Framework | What it does | Status |
 | --- | --- | --- |
-| [AI Use Case Business Card](frameworks/01-ai-use-case-business-card/) | [TODO] | Draft |
+| [AI Use Case Business Card](frameworks/01-ai-use-case-business-card/) | A single-page artefact carrying a use case from intake to decommissioning — business case, measurement plan and governance record in one card | Published |
 | [Use Case Prioritisation Model](frameworks/02-use-case-prioritisation-model/) | [TODO] | Draft |
 | [Model Risk Tiering](frameworks/03-model-risk-tiering/) | [TODO] | Draft |
 | [Cross-Regulation Control Library](frameworks/04-cross-regulation-control-library/) | [TODO] | Draft |
