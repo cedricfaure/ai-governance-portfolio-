@@ -81,7 +81,7 @@ solution delivery and regulatory alignment — currently focused on how
 organisations adopt AI in a way that is rational, secure, ethical, compliant
 and sustainable.
 
-[LinkedIn]([TODO: LinkedIn URL])
+[LinkedIn](linkedin.com/in/cedric/)
 
 ## Provenance and disclaimer
 
