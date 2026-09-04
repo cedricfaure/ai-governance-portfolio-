@@ -1,0 +1,73 @@
+# Model Risk Tiering Scheme — assessment template.
+# Complete every field. See ../reference/dimension-anchors.md for the full
+# anchor text if the one-line summaries below are not enough, and
+# ../tool/README.md for the YAML subset this file must stay within.
+# Assessment is performed by the process owner and reviewed by a second
+# party — self-assessment without review reliably produces low tiers.
+
+identity:
+  system_id: ""              # e.g. "SYS-0142"
+  name: ""
+  owner: ""                  # named individual with accountable ownership — required (F10)
+  process_owner: ""          # named individual — required (F10)
+  type: ""                   # e.g. "Generative AI", "Deterministic rule engine", "Agentic system"
+  description: ""
+
+dimensions:
+  # Every score is an integer 1-5. See dimension-anchors.md for all five
+  # anchors per dimension; one-line reminders only below.
+  D1: 0   # Consequence severity — 1 inconvenience .. 5 safety/liberty/systemic
+  D2: 0   # Affected parties and vulnerability — 1 single internal user .. 5 vulnerable/population-scale
+  D3: 0   # Reversibility and contestability — 1 trivially reversible .. 5 irreversible/no challenge route
+  D4: 0   # Autonomy and action scope — 1 information only .. 5 initiates irreversible/external action alone
+  D5: 0   # Decision weight and human reliance — 1 one input among many .. 5 effectively determinative
+  D6: 0   # Exposure and materiality — 1 negligible, no regulatory purpose .. 5 enterprise-material/regulatory outcome
+  D7: 0   # Opacity — 1 fully transparent .. 5 opaque and non-deterministic
+  D8: 0   # Data sensitivity and provenance — 1 public/synthetic .. 5 special-category, unclear lawful basis
+  D9: 0   # Behavioural volatility — 1 static .. 5 continuously learning/dependent on a third party that may change
+  D10: 0  # Third-party dependency — 1 fully in-house .. 5 critical opaque dependency, no assurance rights
+
+flags:
+  # Booleans referenced by the floors and caps in floors-and-caps.yaml.
+  # Set every one explicitly — do not leave a flag unset.
+  prohibited_practice: false                  # F0
+  organisational_red_line: false              # F0
+  determines_essential_service: false         # F1 — employment, credit, education, housing, healthcare, benefits, essential service
+  vulnerable_or_dependent_subjects: false     # F3 — children or a legally recognised vulnerable/dependent position
+  external_high_risk_classification: false    # F4 — high-risk (or equivalent) under any applicable external regime
+  safety_or_critical_infrastructure: false    # F5
+  no_personal_data: false                     # C1 (cap)
+  no_external_effect: false                   # C1 (cap)
+  no_regulatory_purpose: false                # C1 (cap)
+  is_sandbox: false                           # C2 (cap)
+  no_production_data: false                   # C2 (cap)
+  no_production_output: false                 # C2 (cap)
+  has_declared_expiry: false                  # C2 (cap)
+
+regimes_in_scope: []
+  # List applicable external regimes. Deliberately left unpopulated in this
+  # repository's templates and examples — see ../reference/... cross-walk
+  # note: mappings are populated from primary sources per jurisdiction.
+
+dependencies: []
+  # List of upstream system_id values this system consumes output from.
+  # Enables the §1.11 composite-system inheritance and common-mode checks
+  # when the dependency's own assessment file sits alongside this one.
+
+composite:
+  is_orchestrator: false            # true if this system invokes/delegates to other systems
+  autonomous_chain_length: 1        # count of autonomous invocations in sequence with no human checkpoint
+
+mitigations: []
+  # Each claimed mitigation requires ALL of: owner, evidence_reference,
+  # evidence_date (YYYY-MM-DD), addressed_dimension. Credit is earned, not
+  # claimed — evidence of operation, not of design, per §1.9.
+  # - control: ""
+  #   owner: ""
+  #   evidence_reference: ""
+  #   evidence_date: ""
+  #   addressed_dimension: ""
+
+assessor: ""
+reviewer: ""                # second-party review is mandatory, not advisory (§1.13)
+assessment_date: ""
