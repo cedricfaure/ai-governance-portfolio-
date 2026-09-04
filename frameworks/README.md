@@ -7,4 +7,5 @@ and a ready-to-use `template/`.
 | Framework | Status |
 |---|---|
 | [01 — AI Use Case Business Card](01-ai-use-case-business-card/) | Published |
-| 02–12 | Draft |
+| [02 — Use Case Prioritisation Model](02-use-case-prioritisation-model/) | Published |
+| 03–12 | Draft |
