@@ -8,4 +8,5 @@ and a ready-to-use `template/`.
 |---|---|
 | [01 — AI Use Case Business Card](01-ai-use-case-business-card/) | Published |
 | [02 — Use Case Prioritisation Model](02-use-case-prioritisation-model/) | Published |
-| 03–12 | Draft |
+| [03 — Model Risk Tiering Scheme](03-model-risk-tiering/) | Published |
+| 04–12 | Draft |

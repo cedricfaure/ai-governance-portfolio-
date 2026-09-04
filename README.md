@@ -49,7 +49,7 @@ graph LR
 | --- | --- | --- |
 | [AI Use Case Business Card](frameworks/01-ai-use-case-business-card/) | A single-page artefact carrying a use case from intake to decommissioning — business case, measurement plan and governance record in one card | Published |
 | [Use Case Prioritisation Model](frameworks/02-use-case-prioritisation-model/) | Three-axis scoring — value, feasibility, and cost of control — with Monte Carlo stability-tested bands instead of a false-precision rank | Published |
-| [Model Risk Tiering](frameworks/03-model-risk-tiering/) | [TODO] | Draft |
+| [Model Risk Tiering Scheme](frameworks/03-model-risk-tiering/) | Consequence-anchored tiering with non-compensatory floors and caps, plus a deterministic engine — closes the gap left by AI-excluded revised US model risk management guidance | Published |
 | [Cross-Regulation Control Library](frameworks/04-cross-regulation-control-library/) | [TODO] | Draft |
 | [AI Project PMO Toolkit](frameworks/05-ai-project-pmo-toolkit/) | [TODO] | Draft |
 | [AI System Register Schema](frameworks/06-ai-system-register-schema/) | [TODO] | Draft |
