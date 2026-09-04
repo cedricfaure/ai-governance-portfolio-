@@ -1,0 +1,58 @@
+# Model Risk Tiering Scheme — tier ladder (Framework 03, §1.4) and the
+# percentage-to-tier band mapping (§1.6).
+#
+# mitigation_evidence_max_age_days is NOT part of Part 1's authored text.
+# Part 1 states monitoring cadence in words only (Annual / Quarterly /
+# Monthly / Continuous — see control-obligations.yaml). Section 1.9 requires
+# the engine to refuse mitigation credit when evidence is not dated "within
+# the tier's monitoring cadence", which is only mechanically checkable
+# against a number of days. This field is that translation, made explicit
+# and adjustable here rather than invented in code: Annual->365,
+# Quarterly->90, Monthly->30. "Continuous" has no natural day count; 7 days
+# is used as a deliberately tight, conservative proxy for a tier where
+# monitoring is meant to be ongoing. Recalibrate locally.
+schema_version: "1.0.0"
+tiers:
+  - id: "T0"
+    name: "Prohibited"
+    definition: "The use falls within a practice prohibited under an applicable regime, or breaches a declared organisational red line"
+    posture: "Do not build. Escalate. No mitigation pathway."
+  - id: "T1"
+    name: "Limited"
+    definition: "Minimal consequence; fully reversible; no personal data; internal advisory only"
+    posture: "Register and monitor. Lightweight."
+    mitigation_evidence_max_age_days: 365
+  - id: "T2"
+    name: "Moderate"
+    definition: "Real but bounded consequence; reversible; human decides"
+    posture: "Proportionate controls; standard assurance."
+    mitigation_evidence_max_age_days: 90
+  - id: "T3"
+    name: "High"
+    definition: "Material consequence to people, finances or obligations; limited reversibility, or meaningful autonomy"
+    posture: "Full control set; independent review; formal approval."
+    mitigation_evidence_max_age_days: 30
+  - id: "T4"
+    name: "Critical"
+    definition: "Severe or irreversible consequence; safety-relevant; or high autonomy over consequential irreversible action"
+    posture: "Maximum control set; executive approval; continuous assurance; standing kill switch."
+    mitigation_evidence_max_age_days: 7
+percentage_bands:
+  # Aligned to the four-level structure used in Canada's Algorithmic Impact
+  # Assessment, adopted here for familiarity and cross-walk convenience.
+  # This provisional tier is not the answer — it is an input to the floor
+  # and cap rules in floors-and-caps.yaml, which can only raise it (floors)
+  # or lower it within strict limits (caps).
+  - tier: "T1"
+    min_percentage: 0
+    max_percentage: 25
+  - tier: "T2"
+    min_percentage: 26
+    max_percentage: 50
+  - tier: "T3"
+    min_percentage: 51
+    max_percentage: 75
+  - tier: "T4"
+    min_percentage: 76
+    max_percentage: 100
+tier_order: ["T0", "T1", "T2", "T3", "T4"]

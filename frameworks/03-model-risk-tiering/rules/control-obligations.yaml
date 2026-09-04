@@ -1,0 +1,124 @@
+# Model Risk Tiering Scheme — control obligations by tier (Framework 03,
+# §1.10). Sixteen control domains x four tiers. Every cell is a binding
+# obligation for a system at that inherent tier.
+#
+# On monitoring cadence: the revised MRM guidance removed the prescribed
+# annual validation cadence in favour of materiality-driven review. This
+# framework retains explicit cadences by tier for a practical reason:
+# "risk-based frequency" without a stated default becomes "when someone
+# remembers." The cadences below are the default; deviation is permitted
+# where justified, documented and approved at the tier's approval
+# authority.
+schema_version: "1.0.0"
+domains:
+  - id: "registration"
+    name: "Registration"
+    T1: "Inventory entry"
+    T2: "Inventory + business card"
+    T3: "Full record + cross-walk"
+    T4: "Full record + board-visible register"
+
+  - id: "approval_authority"
+    name: "Approval authority"
+    T1: "Process owner"
+    T2: "Function head"
+    T3: "Risk committee"
+    T4: "Executive committee, with risk sign-off"
+
+  - id: "pre_deployment_validation"
+    name: "Pre-deployment validation"
+    T1: "Self-assessment"
+    T2: "Documented internal review"
+    T3: "Independent review by a party outside the build team"
+    T4: "Independent review + external assurance or peer review"
+
+  - id: "effective_challenge"
+    name: "Effective challenge"
+    T1: "Not required"
+    T2: "Peer review"
+    T3: "Independent, documented, with recorded resolution"
+    T4: "Independent, documented, plus adversarial review"
+
+  - id: "testing"
+    name: "Testing"
+    T1: "Functional"
+    T2: "Functional + baseline performance"
+    T3: "Performance, robustness, bias evaluation across relevant subgroups"
+    T4: "All, plus adversarial and scenario testing across full decision paths"
+
+  - id: "human_oversight"
+    name: "Human oversight"
+    T1: "None required"
+    T2: "Human decides; system advises"
+    T3: "Human review with genuine capacity and authority to override"
+    T4: "Human confirmation before consequential action; documented override rights and protections"
+
+  - id: "documentation"
+    name: "Documentation"
+    T1: "Purpose, owner, inputs"
+    T2: "+ method, data sources, limitations"
+    T3: "+ full technical file, assumptions, known failure modes, evaluation results"
+    T4: "+ decision rationale, residual risk acceptance, minuted approval"
+
+  - id: "monitoring"
+    name: "Monitoring"
+    T1: "Availability"
+    T2: "+ performance against baseline"
+    T3: "+ drift, subgroup performance, override and exception rates"
+    T4: "+ continuous behavioural monitoring, real-time anomaly alerting"
+
+  - id: "monitoring_cadence"
+    name: "Monitoring cadence"
+    T1: "Annual"
+    T2: "Quarterly"
+    T3: "Monthly"
+    T4: "Continuous, with defined response times"
+
+  - id: "logging"
+    name: "Logging"
+    T1: "Standard application logs"
+    T2: "Decision logs"
+    T3: "Decision logs with inputs and rationale, retained per policy"
+    T4: "Full trajectory logs including tool calls and intermediate reasoning steps"
+
+  - id: "revalidation"
+    name: "Revalidation"
+    T1: "On material change"
+    T2: "Every 24 months or on trigger"
+    T3: "Every 12 months or on trigger"
+    T4: "Every 6 months or on trigger"
+
+  - id: "incident_response"
+    name: "Incident response"
+    T1: "Standard IT process"
+    T2: "Defined process with named owner"
+    T3: "Defined playbook, escalation path, notification assessment"
+    T4: "Playbook + rehearsed response + standing kill switch tested at defined intervals"
+
+  - id: "impact_assessment"
+    name: "Impact assessment"
+    T1: "Not required"
+    T2: "Screening"
+    T3: "Full assessment"
+    T4: "Full assessment + external or independent input"
+
+  - id: "contestability"
+    name: "Contestability"
+    T1: "Not applicable"
+    T2: "Feedback route"
+    T3: "Documented challenge route with defined response time"
+    T4: "Formal appeal to a human with authority to reverse"
+
+  - id: "third_party_assurance"
+    name: "Third-party assurance"
+    T1: "Not required"
+    T2: "Vendor attestation"
+    T3: "Contractual assurance rights + evidence review"
+    T4: "Right to audit + change notification + tested substitution plan"
+
+  - id: "decommissioning"
+    name: "Decommissioning"
+    T1: "Remove from inventory"
+    T2: "Documented retirement"
+    T3: "Retirement plan, data disposition, downstream dependency check"
+    T4: "Full plan + transition arrangements + notification of affected parties"

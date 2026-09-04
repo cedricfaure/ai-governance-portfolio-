@@ -1,0 +1,143 @@
+# Model Risk Tiering Scheme — floors and caps (Framework 03, §1.7).
+# The non-compensatory layer. Floors raise the tier and cannot be traded
+# away. Caps lower the tier and every listed condition must hold.
+#
+# precedence: floors always beat caps. This is enforced in the engine
+# (tool/tier.py) as an unconditional rule, not as data — but the ordering
+# and the "caps apply only if the result stays at or above every triggered
+# floor" behaviour described here is exactly what the engine implements,
+# so it is recorded here as the authoritative statement of intent.
+schema_version: "1.0.0"
+precedence: "floors always beat caps"
+resolution_order:
+  - "Compute the provisional tier from the score."
+  - "Evaluate F0. If it fires: T0, stop. No further processing."
+  - "Evaluate all remaining floors. Take the highest floor triggered."
+  - "Inherent Tier = max(provisional tier, highest floor)."
+  - "Evaluate caps. Apply only if the resulting tier would remain at or above every triggered floor."
+  - "Record the complete trail: score, band, every rule evaluated, every rule fired, and the final assignment."
+
+floors:
+  - id: "F0"
+    description: "The use falls within a practice prohibited under an applicable regime, or breaches a declared organisational red line"
+    effect: "T0"
+    condition:
+      any:
+        - flag: "prohibited_practice"
+        - flag: "organisational_red_line"
+
+  - id: "F1"
+    description: "Output determines or materially influences access to employment, credit, education, housing, healthcare, social benefits, or an essential public or private service"
+    effect: "T3"
+    condition:
+      any:
+        - flag: "determines_essential_service"
+
+  - id: "F2"
+    description: "System can initiate an irreversible or externally visible action without per-instance human confirmation (D4 = 5)"
+    effect: "T3"
+    condition:
+      any:
+        - dimension: "D4"
+          op: "=="
+          value: 5
+
+  - id: "F3"
+    description: "Decision subjects include children or persons in a legally recognised position of vulnerability or dependence"
+    effect: "T3"
+    condition:
+      any:
+        - flag: "vulnerable_or_dependent_subjects"
+
+  - id: "F4"
+    description: "System is classified as high-risk, or equivalent, under any applicable external regime"
+    effect: "T3"
+    condition:
+      any:
+        - flag: "external_high_risk_classification"
+
+  - id: "F5"
+    description: "Failure could result in physical harm, or affects safety-relevant functions or critical infrastructure"
+    effect: "T4"
+    condition:
+      any:
+        - flag: "safety_or_critical_infrastructure"
+
+  - id: "F6"
+    description: "Output determines a regulatory, statutory, prudential or capital outcome (D6 = 5)"
+    effect: "T3"
+    condition:
+      any:
+        - dimension: "D6"
+          op: "=="
+          value: 5
+
+  - id: "F7"
+    description: "Special-category data with unresolved lawful basis or undocumented provenance (D8 = 5)"
+    effect: "T3"
+    condition:
+      any:
+        - dimension: "D8"
+          op: "=="
+          value: 5
+
+  - id: "F8"
+    description: "D4 >= 4 and D9 >= 4 — meaningful autonomy combined with behaviour that changes without a release"
+    effect: "T3"
+    condition:
+      all:
+        - dimension: "D4"
+          op: ">="
+          value: 4
+        - dimension: "D9"
+          op: ">="
+          value: 4
+
+  - id: "F9"
+    description: "D3 = 5 and D2 >= 4 — irreversible effect on a large or vulnerable population"
+    effect: "T4"
+    condition:
+      all:
+        - dimension: "D3"
+          op: "=="
+          value: 5
+        - dimension: "D2"
+          op: ">="
+          value: 4
+
+  - id: "F10"
+    description: "No accountable named owner, or no identified process owner. This is not a risk about the system. It is a risk about the organisation, and it is placed here deliberately: an unowned system cannot be governed at any tier, and the fastest way to get an owner named is to make the absence expensive. Minimum T3 until remedied; may not enter production."
+    effect: "T3"
+    condition:
+      any:
+        - field_empty: "identity.owner"
+        - field_empty: "identity.process_owner"
+
+caps:
+  - id: "C1"
+    description: "No personal data, no external effect, fully reversible, human decides independently (D4 <= 2, D5 <= 2), no regulatory purpose"
+    effect: "T2"
+    condition:
+      all:
+        - flag: "no_personal_data"
+        - flag: "no_external_effect"
+        - dimension: "D3"
+          op: "<="
+          value: 1
+        - dimension: "D4"
+          op: "<="
+          value: 2
+        - dimension: "D5"
+          op: "<="
+          value: 2
+        - flag: "no_regulatory_purpose"
+
+  - id: "C2"
+    description: "Sandbox or evaluation environment, no production data, no production output, time-boxed with a declared expiry. Expires with the time box."
+    effect: "T1"
+    condition:
+      all:
+        - flag: "is_sandbox"
+        - flag: "no_production_data"
+        - flag: "no_production_output"
+        - flag: "has_declared_expiry"
