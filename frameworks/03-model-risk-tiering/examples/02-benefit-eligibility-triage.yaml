@@ -1,0 +1,47 @@
+# SYNTHETIC EXAMPLE — see worked-examples.md. Does not describe a real system.
+# The flagship example: out of scope of the revised MRM guidance's narrowed
+# model definition (a deterministic rules engine, not a statistical or ML
+# model), out of scope of AI-specific regulation for the same reason, and
+# a score-only scheme would have rated it T1. It exists to show what
+# floors are for.
+identity:
+  system_id: "SYS-BENEFIT-01"
+  name: "Benefit Eligibility Triage Engine"
+  owner: "Head of Benefits Administration [synthetic]"
+  process_owner: "Eligibility Operations Lead [synthetic]"
+  type: "Deterministic rule engine"
+  description: "Applies a fixed decision-table to incoming benefit claims to produce a triage recommendation (approve / refer for review / decline) using declared income, household and eligibility-category fields. No machine learning; the ruleset changes only via a formal change-controlled release."
+dimensions:
+  D1: 4
+  D2: 4
+  D3: 3
+  D4: 2
+  D5: 3
+  D6: 3
+  D7: 1
+  D8: 3
+  D9: 1
+  D10: 1
+flags:
+  prohibited_practice: false
+  organisational_red_line: false
+  determines_essential_service: true
+  vulnerable_or_dependent_subjects: true
+  external_high_risk_classification: false
+  safety_or_critical_infrastructure: false
+  no_personal_data: false
+  no_external_effect: false
+  no_regulatory_purpose: false
+  is_sandbox: false
+  no_production_data: false
+  no_production_output: false
+  has_declared_expiry: false
+regimes_in_scope: []
+dependencies: []
+composite:
+  is_orchestrator: false
+  autonomous_chain_length: 1
+mitigations: []
+assessor: "A. Assessor [synthetic]"
+reviewer: "R. Reviewer [synthetic]"
+assessment_date: "2026-08-15"

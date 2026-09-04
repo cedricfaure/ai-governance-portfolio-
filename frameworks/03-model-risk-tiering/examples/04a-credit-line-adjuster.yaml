@@ -1,0 +1,44 @@
+# SYNTHETIC SUPPORTING FIXTURE for example 04 (common-mode dependency, §1.11
+# rule 5) — not one of the four primary examples in its own right. Depends
+# on SYS-EMBED-01. See worked-examples.md.
+identity:
+  system_id: "SYS-CREDIT-ADJ"
+  name: "Credit Line Adjustment Recommender"
+  owner: "Head of Consumer Credit [synthetic]"
+  process_owner: "Credit Risk Operations Lead [synthetic]"
+  type: "Machine learning (gradient-boosted model)"
+  description: "Recommends credit line increases or decreases per account, using the shared embedding pipeline over transaction narrative data as one input."
+dimensions:
+  D1: 4
+  D2: 3
+  D3: 3
+  D4: 2
+  D5: 3
+  D6: 3
+  D7: 3
+  D8: 3
+  D9: 2
+  D10: 2
+flags:
+  prohibited_practice: false
+  organisational_red_line: false
+  determines_essential_service: true
+  vulnerable_or_dependent_subjects: false
+  external_high_risk_classification: false
+  safety_or_critical_infrastructure: false
+  no_personal_data: false
+  no_external_effect: false
+  no_regulatory_purpose: false
+  is_sandbox: false
+  no_production_data: false
+  no_production_output: false
+  has_declared_expiry: false
+regimes_in_scope: []
+dependencies: ["SYS-EMBED-01"]
+composite:
+  is_orchestrator: false
+  autonomous_chain_length: 1
+mitigations: []
+assessor: "A. Assessor [synthetic]"
+reviewer: "R. Reviewer [synthetic]"
+assessment_date: "2026-08-10"
