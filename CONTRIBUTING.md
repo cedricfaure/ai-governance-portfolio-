@@ -1,6 +1,6 @@
 # Contributing
 
-This is a personal portfolio repository, not a community project — but
+This is a personal portfolio repository, not a community project but
 corrections are genuinely welcome, especially where regulatory or technical
 accuracy is concerned.
 
@@ -12,7 +12,7 @@ accuracy is concerned.
   accept. Larger changes are less likely to be merged, as this repository
   reflects one person's work and views.
 - **Contact**: the best way to reach the author is via
-  [LinkedIn](https://www.linkedin.com/in/[TODO: LinkedIn handle]).
+  [LinkedIn](https://www.linkedin.com/in/cedric).
 
 ## GitHub Pages
 
