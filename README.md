@@ -1,7 +1,4 @@
-<!-- Banner should be 1280×640. Degrades gracefully if the file is absent. -->
-<p align="center">
-  <img src="assets/banner/banner.png" alt="AI Governance Portfolio — Cédric Faure" width="100%">
-</p>
+
 
 # AI Governance Portfolio
 
