@@ -23,3 +23,4 @@ status: draft            # draft | published
 
 | Date | Title | Topic | Status |
 | ---- | ----- | ----- | ------ |
+| 2026-06-22 | [The Healthcare AI Compass: Evidence, Adoption and What AI Professionals Get Wrong](2026-06-healthcare-ai-compass.md) | Healthcare AI, evidence vs. adoption | Published |
