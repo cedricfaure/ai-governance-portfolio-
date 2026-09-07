@@ -2,7 +2,7 @@
 
 # AI Governance Portfolio
 
-**Frameworks, tools and writing on governing AI in practice — with a GCC lens.**
+**Frameworks, tools and writing on governing AI in practice, with a GCC lens.**
 
 Practical artefacts for the people accountable for AI in an organisation: risk
 tiering, control mapping across overlapping regulations, use case intake and
@@ -12,7 +12,7 @@ execution rather than bolted on afterwards.
 [![Code licence: MIT](https://img.shields.io/badge/code%20licence-MIT-blue.svg)](LICENCE-CODE.md)
 [![Content licence: CC BY 4.0](https://img.shields.io/badge/content%20licence-CC%20BY%204.0-lightgrey.svg)](LICENCE-CONTENT.md)
 
-<!-- TODO: add certification badges once confirmed — AIGP, Databricks Azure Platform Architect,
+<!-- TODO: add certification badges once confirmed, AIGP, Databricks Azure Platform Architect,
      AWS Cloud Practitioner. Do not render unverified certification badges. -->
 
 ## Who this is for
@@ -36,17 +36,17 @@ graph LR
     C --> C2[Drafts]
 ```
 
-**Frameworks** — reusable templates and models for running AI governance day to day.
-**Projects** — working tools that put the frameworks into practice.
-**Writing** — articles on AI governance in practice, with a GCC lens.
+**Frameworks** reusable templates and models for running AI governance day to day.
+**Projects** working tools that put the frameworks into practice.
+**Writing** articles on AI governance in practice, with a GCC lens.
 
 ## Frameworks
 
 | Framework | What it does | Status |
 | --- | --- | --- |
-| [AI Use Case Business Card](frameworks/01-ai-use-case-business-card/) | A single-page artefact carrying a use case from intake to decommissioning — business case, measurement plan and governance record in one card | Published |
-| [Use Case Prioritisation Model](frameworks/02-use-case-prioritisation-model/) | Three-axis scoring — value, feasibility, and cost of control — with Monte Carlo stability-tested bands instead of a false-precision rank | Published |
-| [Model Risk Tiering Scheme](frameworks/03-model-risk-tiering/) | Consequence-anchored tiering with non-compensatory floors and caps, plus a deterministic engine — closes the gap left by AI-excluded revised US model risk management guidance | Published |
+| [AI Use Case Business Card](frameworks/01-ai-use-case-business-card/) | A single-page artefact carrying a use case from intake to decommissioning, business case, measurement plan and governance record in one card | Published |
+| [Use Case Prioritisation Model](frameworks/02-use-case-prioritisation-model/) | Three-axis scoring, value, feasibility, and cost of control, with Monte Carlo stability-tested bands instead of a false-precision rank | Published |
+| [Model Risk Tiering Scheme](frameworks/03-model-risk-tiering/) | Consequence-anchored tiering with non-compensatory floors and caps, plus a deterministic engine . Closes the gap left by AI-excluded revised US model risk management guidance | Published |
 | [Cross-Regulation Control Library](frameworks/04-cross-regulation-control-library/) | [TODO] | Draft |
 | [AI Project PMO Toolkit](frameworks/05-ai-project-pmo-toolkit/) | [TODO] | Draft |
 | [AI System Register Schema](frameworks/06-ai-system-register-schema/) | [TODO] | Draft |
@@ -74,7 +74,7 @@ Articles on AI governance in practice, with a GCC lens. See [writing/](writing/)
 Cédric Faure is a Data & AI leader based in Abu Dhabi, working across AI
 governance, strategy and delivery for government, healthcare and energy
 organisations in the GCC. Fourteen years spanning strategy consulting,
-solution delivery and regulatory alignment — currently focused on how
+solution delivery and regulatory alignment , currently focused on how
 organisations adopt AI in a way that is rational, secure, ethical, compliant
 and sustainable.
 
