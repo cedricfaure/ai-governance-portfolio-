@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "note": "All enumerations from the AI System Register Schema (Framework 06), sections on system_type, provenance, decision_role, lifecycle_status, human_oversight_model, and discovery_source. Values, labels and definitions are transcribed verbatim from the framework document. See ../README.md.",
+  "taxonomies": {
+    "system_type": {
+      "description": "Traditional inventories were built for applications. AI estates contain three fundamentally different things, and the governance question differs for each.",
+      "categories": {
+        "application": [
+          {"value": "genai_assistant", "label": "GenAI assistant", "definition": "Conversational or generative tool used by staff", "examples": "Chat assistant, drafting tool"},
+          {"value": "embedded_saas_ai", "label": "Embedded SaaS AI", "definition": "AI feature inside a product bought for another purpose", "examples": "CRM lead scoring, HR CV ranking"},
+          {"value": "predictive_model", "label": "Predictive model", "definition": "Statistical or ML model producing a score, class or forecast", "examples": "Churn model, claims triage, credit scorecard"},
+          {"value": "rules_engine", "label": "Rules engine", "definition": "Deterministic logic driving a consequential decision", "examples": "Eligibility matrix, pricing rules"},
+          {"value": "spreadsheet_model", "label": "Spreadsheet model", "definition": "Scoring or eligibility model in a spreadsheet", "examples": "Grant scoring workbook"},
+          {"value": "browser_extension", "label": "Browser extension", "definition": "AI running inside the browser session", "examples": "Summariser, meeting notetaker"},
+          {"value": "coding_assistant", "label": "Coding assistant", "definition": "AI generating or reviewing code", "examples": "Code completion, PR review bot"}
+        ],
+        "infrastructure": [
+          {"value": "model_api", "label": "Model API", "definition": "Externally hosted model accessed by API", "examples": "Foundation model endpoint"},
+          {"value": "local_model_runtime", "label": "Local model runtime", "definition": "Model running on local or self-hosted infrastructure", "examples": "On-prem inference server, laptop runtime"},
+          {"value": "vector_store_rag", "label": "Vector store / RAG", "definition": "Retrieval infrastructure serving model context", "examples": "Embedding store, RAG pipeline"},
+          {"value": "ml_platform", "label": "ML platform", "definition": "Training, serving or feature infrastructure", "examples": "Feature store, model registry"}
+        ],
+        "agentic": [
+          {"value": "agent", "label": "Agent", "definition": "System that plans and acts, invoking tools", "examples": "Procurement agent, triage agent"},
+          {"value": "agent_framework", "label": "Agent framework", "definition": "Orchestration layer for agents", "examples": "Orchestrator, planner"},
+          {"value": "mcp_client", "label": "MCP client", "definition": "Component consuming tool servers", "examples": "IDE agent with tool access"},
+          {"value": "mcp_server", "label": "MCP server", "definition": "Component exposing tools, data or actions to a model", "examples": "Local server exposing a database"}
+        ]
+      },
+      "rationale": "Why the agentic category is separate. An assistant that drafts text and an agent that can write to a production database are not variants of the same thing, they are different governance problems. The inventory must capture what a system can do, not what it is built from. Local agentic components in particular, MCP servers on developer machines, local runtimes, agent frameworks, are the fastest-growing blind spot, and they appear in no traditional SaaS inventory."
+    },
+    "provenance": {
+      "description": "Determines who you can ask questions of, and what assurance is available.",
+      "values": [
+        {"value": "built_in_house", "definition": "Developed internally", "governance_implication": "Full visibility; full accountability"},
+        {"value": "bought_standalone", "definition": "Procured as an AI product", "governance_implication": "Contractual assurance rights should exist, check they do"},
+        {"value": "embedded_feature", "definition": "AI inside a product bought for something else", "governance_implication": "Never separately procured, so never reviewed. Highest miss rate."},
+        {"value": "accessed_free_tier", "definition": "Consumer or free-tier tool used for work", "governance_implication": "No contract, no data guarantees, often no visibility"},
+        {"value": "open_weights_self_hosted", "definition": "Open model run on own infrastructure", "governance_implication": "Full control; full responsibility for evaluation"},
+        {"value": "agent_or_extension", "definition": "Installed by an individual user", "governance_implication": "Often unmanaged; often privileged"}
+      ],
+      "note": "embedded_feature is the field that finds the most systems. The feature was switched on without a separate purchase, so it never reached a procurement gate, never got a security review, and never reached any register. Treat every embedded AI feature as in scope until ruled out."
+    },
+    "decision_role": {
+      "description": "The single highest-value field in the register. It determines regulatory exposure, drives Framework 03's D4 and D5 dimensions, and is the field most disclosure obligations turn on. It is also the one most often recorded optimistically.",
+      "values": [
+        {"value": "makes", "definition": "The system decides. No person reviews before the outcome takes effect.", "test": "Does the outcome reach the person without a human seeing it?"},
+        {"value": "supports_determinative", "definition": "A person nominally reviews, but in practice defers", "test": "Is override technically available but rare, under throughput pressure, or without independent grounds to disagree?"},
+        {"value": "supports_genuine", "definition": "A person genuinely reviews and can overturn, with capacity and authority", "test": "Does the reviewer have time, information and standing to disagree, and do they measurably do so?"},
+        {"value": "informs", "definition": "One input among several; the person decides independently", "test": "Would the decision be made anyway, differently sourced?"},
+        {"value": "no_decision", "definition": "Produces no decision or action consequence", "test": null}
+      ],
+      "note": "The supports_determinative category is deliberate and is the most important design choice in the schema. Most registers offer only \"makes\" or \"supports\", and almost everything gets recorded as \"supports\" because a human is nominally in the loop. That collapses the distinction between real oversight and a rubber stamp, and rubber-stamped human-in-the-loop is the most common false control in AI governance.",
+      "evidence_test": "If you cannot state the override rate for a system recorded as supports_genuine, you do not know that it is. An override rate near zero means the classification is supports_determinative, whatever the process document says. Measure it before claiming it."
+    },
+    "lifecycle_status": {
+      "values": [
+        {"value": "proposed", "definition": "Under consideration; not built", "register_implication": "On the register from intake"},
+        {"value": "in_development", "definition": "Being built", "register_implication": "Tier before build approval"},
+        {"value": "in_trial", "definition": "Pilot with real data or real users", "register_implication": "Full obligations apply. A pilot touching real people is not exempt."},
+        {"value": "in_use", "definition": "Live in production", "register_implication": "Full obligations"},
+        {"value": "suspended", "definition": "Temporarily stopped", "register_implication": "Retained; reason recorded"},
+        {"value": "being_retired", "definition": "Decommissioning in progress", "register_implication": "Dependency check required before removal"},
+        {"value": "retired", "definition": "No longer in use", "register_implication": "Retained, not deleted"},
+        {"value": "out_of_scope", "definition": "Assessed and excluded", "register_implication": "Retained with reasoning"}
+      ],
+      "rules": [
+        "A register showing only live systems misses the one going to production next month.",
+        "Retired entries are never deleted, because \"what were we using in March\" is a question that gets asked after an incident."
+      ]
+    },
+    "human_oversight_model": {
+      "values": [
+        {"value": "none", "definition": "No human involvement in the loop"},
+        {"value": "on_the_loop", "definition": "Human monitors and can intervene, but does not approve individually"},
+        {"value": "sampled_review", "definition": "A defined sample is reviewed after the fact"},
+        {"value": "in_the_loop", "definition": "Human approves each consequential output before effect"},
+        {"value": "human_decides", "definition": "System advises only; the human makes the decision"}
+      ],
+      "consistency_rule": "This field must be coherent with decision_role and autonomy_level. A system recorded as in_the_loop oversight and makes decision role is internally contradictory, one of the two is wrong. The validator must flag this pairing."
+    },
+    "discovery_source": {
+      "description": "Record how each entry was found. This field is the register's own quality metric. If 95% of entries are declared_by_team, discovery has not run. A healthy mature register shows most new entries arriving through intake_process, because the front door is working, and continues to show a trickle from technical layers, because it always will.",
+      "values": [
+        {"value": "declared_by_team"},
+        {"value": "amnesty"},
+        {"value": "network_log"},
+        {"value": "identity_oauth"},
+        {"value": "endpoint_browser"},
+        {"value": "saas_admin_sweep"},
+        {"value": "expense_procurement"},
+        {"value": "local_agentic_sweep"},
+        {"value": "incident"},
+        {"value": "audit"},
+        {"value": "intake_process"}
+      ]
+    }
+  }
+}

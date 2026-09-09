@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-governance-portfolio/frameworks/06-ai-system-register-schema/register-entry.json",
+  "title": "AI System Register entry",
+  "description": "One entry in the AI System Register (Framework 06). Fields are grouped into three layers: Layer 1 (core, every system, required unconditionally), Layer 2 (extended, required once risk_tier reaches T2 or above), and Layer 3 (regulatory, required once a registration trigger fires). See ../README.md and ../reference/field-definitions.md for the authored definition of every field.",
+  "type": "object",
+  "properties": {
+    "system_id": {
+      "type": "string",
+      "layer": 1,
+      "description": "Unique persistent identifier. Never reused."
+    },
+    "name": {
+      "type": "string",
+      "layer": 1,
+      "description": "What it is called internally"
+    },
+    "description": {
+      "type": "string",
+      "layer": 1,
+      "description": "One plain sentence on what it does"
+    },
+    "purpose": {
+      "type": "string",
+      "layer": 1,
+      "description": "The decision or task it exists to perform"
+    },
+    "business_owner": {
+      "type": "string",
+      "layer": 1,
+      "description": "Named individual accountable inside the organisation. Never a vendor, never a team."
+    },
+    "technical_owner": {
+      "type": "string",
+      "layer": 1,
+      "description": "Named individual accountable for it working"
+    },
+    "system_type": {
+      "type": "string",
+      "layer": 1,
+      "description": "See taxonomies.json: system_type",
+      "enum": ["genai_assistant", "embedded_saas_ai", "predictive_model", "rules_engine", "spreadsheet_model", "browser_extension", "coding_assistant", "model_api", "local_model_runtime", "vector_store_rag", "ml_platform", "agent", "agent_framework", "mcp_client", "mcp_server"]
+    },
+    "provenance": {
+      "type": "string",
+      "layer": 1,
+      "description": "See taxonomies.json: provenance",
+      "enum": ["built_in_house", "bought_standalone", "embedded_feature", "accessed_free_tier", "open_weights_self_hosted", "agent_or_extension"]
+    },
+    "decision_role": {
+      "type": "string",
+      "layer": 1,
+      "description": "See taxonomies.json: decision_role. The highest-value field in the register.",
+      "enum": ["makes", "supports_determinative", "supports_genuine", "informs", "no_decision"]
+    },
+    "affects_people": {
+      "type": "string",
+      "layer": 1,
+      "description": "no / internal_staff / external_individuals",
+      "enum": ["no", "internal_staff", "external_individuals"]
+    },
+    "data_categories": {
+      "type": "array",
+      "items": {"type": "string"},
+      "layer": 1,
+      "description": "Plain-language categories consumed"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "layer": 1,
+      "description": "See taxonomies.json: lifecycle_status",
+      "enum": ["proposed", "in_development", "in_trial", "in_use", "suspended", "being_retired", "retired", "out_of_scope"]
+    },
+    "discovery_source": {
+      "type": "string",
+      "layer": 1,
+      "description": "How this entry was found. See taxonomies.json: discovery_source",
+      "enum": ["declared_by_team", "amnesty", "network_log", "identity_oauth", "endpoint_browser", "saas_admin_sweep", "expense_procurement", "local_agentic_sweep", "incident", "audit", "intake_process"]
+    },
+    "date_registered": {
+      "type": "string",
+      "format": "date",
+      "layer": 1,
+      "description": "First entry date"
+    },
+    "risk_tier": {
+      "type": "string",
+      "layer": 2,
+      "description": "T0 to T4 from Framework 03",
+      "enum": ["T0", "T1", "T2", "T3", "T4"]
+    },
+    "tier_date": {
+      "type": "string",
+      "format": "date",
+      "layer": 2,
+      "description": "When the tier was assigned"
+    },
+    "tier_ruleset_version": {
+      "type": "string",
+      "layer": 2,
+      "description": "Which rule-set version produced it"
+    },
+    "process_owner": {
+      "type": "string",
+      "layer": 2,
+      "description": "Accountable for the business process it sits in"
+    },
+    "vendor": {
+      "type": "string",
+      "layer": 2,
+      "description": "Supplier, or in-house. For embedded features, name the parent product too."
+    },
+    "underlying_model": {
+      "type": "string",
+      "layer": 2,
+      "description": "Model or family where known, including version"
+    },
+    "model_provenance": {
+      "type": "string",
+      "layer": 2,
+      "description": "in_house / open_weights / commercial_api / embedded_unknown",
+      "enum": ["in_house", "open_weights", "commercial_api", "embedded_unknown"]
+    },
+    "human_oversight_model": {
+      "type": "string",
+      "layer": 2,
+      "description": "See taxonomies.json: human_oversight_model",
+      "enum": ["none", "on_the_loop", "sampled_review", "in_the_loop", "human_decides"]
+    },
+    "autonomy_level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "layer": 2,
+      "description": "Framework 03 dimension D4"
+    },
+    "decision_weight": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "layer": 2,
+      "description": "Framework 03 dimension D5"
+    },
+    "volume": {
+      "type": "string",
+      "layer": 2,
+      "description": "Decisions or actions per period"
+    },
+    "systems_integrated": {
+      "type": "array",
+      "items": {"type": "string"},
+      "layer": 2,
+      "description": "Systems it reads from or writes to"
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {"type": "string"},
+      "layer": 2,
+      "description": "system_id list, upstream dependencies"
+    },
+    "data_residency": {
+      "type": "string",
+      "layer": 2,
+      "description": "Where data is processed and stored"
+    },
+    "monitoring_in_place": {
+      "type": "string",
+      "layer": 2,
+      "description": "none / availability / performance / drift_and_subgroup / continuous_behavioural",
+      "enum": ["none", "availability", "performance", "drift_and_subgroup", "continuous_behavioural"]
+    },
+    "last_reviewed": {
+      "type": "string",
+      "format": "date",
+      "layer": 2,
+      "description": "Per tier cadence (paired with next_review_due; Part 1 tables this as one row covering both fields)"
+    },
+    "next_review_due": {
+      "type": "string",
+      "format": "date",
+      "layer": 2,
+      "description": "Per tier cadence (paired with last_reviewed; Part 1 tables this as one row covering both fields)"
+    },
+    "regimes_in_scope": {
+      "type": "array",
+      "items": {"type": "string"},
+      "layer": 3,
+      "description": "Applicable regimes, per jurisdiction, populated locally"
+    },
+    "classification_per_regime": {
+      "type": "string",
+      "layer": 3,
+      "description": "Classification under each"
+    },
+    "organisational_role": {
+      "type": "string",
+      "layer": 3,
+      "description": "Role under each regime where the regime distinguishes roles"
+    },
+    "registration_required": {
+      "type": "boolean",
+      "layer": 3,
+      "description": "Whether external registration is required"
+    },
+    "registration_reference": {
+      "type": "string",
+      "layer": 3,
+      "description": "External registration or database reference number"
+    },
+    "registration_date": {
+      "type": "string",
+      "format": "date",
+      "layer": 3,
+      "description": "Date registered externally"
+    },
+    "lawful_basis": {
+      "type": "string",
+      "layer": 3,
+      "description": "Lawful basis for processing personal data"
+    },
+    "impact_assessment_ref": {
+      "type": "string",
+      "layer": 3,
+      "description": "Reference to the completed assessment"
+    },
+    "impact_assessment_date": {
+      "type": "string",
+      "format": "date",
+      "layer": 3,
+      "description": "Date completed"
+    },
+    "transparency_disclosure": {
+      "type": "string",
+      "layer": 3,
+      "description": "Where the use is disclosed to affected people"
+    },
+    "contestability_route": {
+      "type": "string",
+      "layer": 3,
+      "description": "How a person challenges an outcome"
+    },
+    "retention_and_logging": {
+      "type": "string",
+      "layer": 3,
+      "description": "Log retention arrangement"
+    },
+    "conformity_evidence_ref": {
+      "type": "string",
+      "layer": 3,
+      "description": "Reference to the conformity or assurance file"
+    },
+    "substantial_modification_log": {
+      "type": "string",
+      "layer": 3,
+      "description": "Changes triggering re-registration"
+    }
+  },
+  "required": [
+    "system_id", "name", "description", "purpose", "business_owner", "technical_owner",
+    "system_type", "provenance", "decision_role", "affects_people", "data_categories",
+    "lifecycle_status", "discovery_source", "date_registered"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {"risk_tier": {"enum": ["T2", "T3", "T4"]}},
+        "required": ["risk_tier"]
+      },
+      "then": {
+        "required": [
+          "risk_tier", "tier_date", "tier_ruleset_version", "process_owner", "vendor",
+          "model_provenance", "human_oversight_model", "autonomy_level", "decision_weight",
+          "volume", "monitoring_in_place", "last_reviewed", "next_review_due"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {"registration_required": {"const": true}},
+        "required": ["registration_required"]
+      },
+      "then": {
+        "required": [
+          "regimes_in_scope", "classification_per_regime", "registration_reference", "registration_date"
+        ]
+      }
+    }
+  ]
+}
