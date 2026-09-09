@@ -49,7 +49,7 @@ graph LR
 | [Model Risk Tiering Scheme](frameworks/03-model-risk-tiering/) | Consequence-anchored tiering with non-compensatory floors and caps, plus a deterministic engine . Closes the gap left by AI-excluded revised US model risk management guidance | Published |
 | [Cross-Regulation Control Library](frameworks/04-cross-regulation-control-library/) | [TODO] | Draft |
 | [AI Project PMO Toolkit](frameworks/05-ai-project-pmo-toolkit/) | [TODO] | Draft |
-| [AI System Register Schema](frameworks/06-ai-system-register-schema/) | [TODO] | Draft |
+| [AI System Register Schema](frameworks/06-ai-system-register-schema/) | The foundational record: a 45-field three-layer schema, a five-layer shadow AI discovery method, and a 90-day playbook to build it | Published |
 | [FRIA and DPIA Templates](frameworks/07-fria-and-dpia-templates/) | [TODO] | Draft |
 | [Model Card Template](frameworks/08-model-card-template/) | [TODO] | Draft |
 | [Vendor AI Due Diligence](frameworks/09-vendor-ai-due-diligence/) | [TODO] | Draft |
