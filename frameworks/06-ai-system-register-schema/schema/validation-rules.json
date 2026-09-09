@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0.0",
+  "note": "Declarative cross-field consistency rules for the AI System Register (Framework 06, register.py 'validate' command). The engine reads and evaluates these rules; it does not hard-code them. Condition primitives supported: field/op/value comparisons (==, !=, >=, in), empty/populated checks, date_past, in_category (taxonomy category membership), all/any combinators, and the register-wide cross_reference check used by R7.",
+  "implementation_notes": {
+    "R2": "Part 1 (section 1.7) requires 'an override-rate evidence field' to be populated for a supports_genuine classification to stand, but the 44-field schema does not name a dedicated override_rate field. This rule uses monitoring_in_place as the closest schema field to that evidence, consistent with Framework 03's control-obligations table, which ties 'override and exception rates' to the monitoring domain. This mapping is a judgement call, not an invented field; see README limitations.",
+    "R8": "\"vendor does not name a parent product\" is operationalised as the vendor field being empty. The schema cannot verify that a populated vendor field actually names a parent product, only that something was recorded."
+  },
+  "rules": [
+    {
+      "id": "R1",
+      "description": "human_oversight_model: in_the_loop with decision_role: makes is internally contradictory (section 1.9)",
+      "severity": "error",
+      "scope": "entry",
+      "condition": {
+        "all": [
+          {"field": "human_oversight_model", "op": "==", "value": "in_the_loop"},
+          {"field": "decision_role", "op": "==", "value": "makes"}
+        ]
+      }
+    },
+    {
+      "id": "R2",
+      "description": "decision_role: supports_genuine with no override-rate evidence field populated, see section 1.7 evidence test",
+      "severity": "warning",
+      "scope": "entry",
+      "condition": {
+        "all": [
+          {"field": "decision_role", "op": "==", "value": "supports_genuine"},
+          {"any": [
+            {"field": "monitoring_in_place", "empty": true},
+            {"field": "monitoring_in_place", "op": "==", "value": "none"}
+          ]}
+        ]
+      }
+    },
+    {
+      "id": "R3",
+      "description": "affects_people: external_individuals and decision_role in (makes, supports_determinative) and no Layer 3 populated, probable registration trigger",
+      "severity": "warning",
+      "scope": "entry",
+      "condition": {
+        "all": [
+          {"field": "affects_people", "op": "==", "value": "external_individuals"},
+          {"field": "decision_role", "op": "in", "value": ["makes", "supports_determinative"]},
+          {"field": "registration_required", "empty": true},
+          {"field": "regimes_in_scope", "empty": true}
+        ]
+      }
+    },
+    {
+      "id": "R4",
+      "description": "No business_owner, orphan",
+      "severity": "error",
+      "scope": "entry",
+      "condition": {
+        "field": "business_owner", "empty": true
+      }
+    },
+    {
+      "id": "R5",
+      "description": "lifecycle_status: in_use and next_review_due in the past, stale",
+      "severity": "warning",
+      "scope": "entry",
+      "condition": {
+        "all": [
+          {"field": "lifecycle_status", "op": "==", "value": "in_use"},
+          {"field": "next_review_due", "op": "date_past"}
+        ]
+      }
+    },
+    {
+      "id": "R6",
+      "description": "autonomy_level >= 4 and human_oversight_model: none and affects_people != no, escalate",
+      "severity": "error",
+      "scope": "entry",
+      "condition": {
+        "all": [
+          {"field": "autonomy_level", "op": ">=", "value": 4},
+          {"field": "human_oversight_model", "op": "==", "value": "none"},
+          {"field": "affects_people", "op": "!=", "value": "no"}
+        ]
+      }
+    },
+    {
+      "id": "R7",
+      "description": "depends_on references a system_id not in the register, broken dependency",
+      "severity": "error",
+      "scope": "register",
+      "check": "depends_on_resolves"
+    },
+    {
+      "id": "R8",
+      "description": "provenance: embedded_feature and vendor does not name a parent product",
+      "severity": "warning",
+      "scope": "entry",
+      "condition": {
+        "all": [
+          {"field": "provenance", "op": "==", "value": "embedded_feature"},
+          {"field": "vendor", "empty": true}
+        ]
+      }
+    },
+    {
+      "id": "R9",
+      "description": "system_type in agentic category and no systems_integrated recorded, action scope unknown",
+      "severity": "warning",
+      "scope": "entry",
+      "condition": {
+        "all": [
+          {"field": "system_type", "op": "in_category", "taxonomy": "system_type", "category": "agentic"},
+          {"field": "systems_integrated", "empty": true}
+        ]
+      }
+    },
+    {
+      "id": "R10",
+      "description": "lifecycle_status: in_trial and no risk_tier, pilots are not exempt, section 1.8",
+      "severity": "warning",
+      "scope": "entry",
+      "condition": {
+        "all": [
+          {"field": "lifecycle_status", "op": "==", "value": "in_trial"},
+          {"field": "risk_tier", "empty": true}
+        ]
+      }
+    }
+  ]
+}
